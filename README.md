@@ -1,6 +1,9 @@
 # Formats
 
 This repo contains the formats as input and output of SCSN seismic processing services as well as overall description of the message structure for the services.
+These formats are seismic processing. Seismic products at SCSN are accessible with [fdsn stndards](https://fdsn.org/services/). See (https://service.scedc.caltech.edu)
+
+We welcome feedback on making these formats generalized for any seismic processing use cases. Where possible, we adopt existing formats.
 
 ## Service Request and Response Structure
 
