@@ -1,0 +1,41 @@
+This is a mapping for the PhaseNet csv output to json phase pick format.
+
+    {
+      "Type"      : "Pick",
+      "Site"      :
+      {
+         "Station"   : String,
+         "Channel"   : String,
+         "Network"   : String,
+         "Location"  : String
+      },
+      "Time"      : phase_time, #format: YYYY-MM-DDTHH:MM:SS.SSSZ
+      "Source"    :
+      {
+         "AgencyID"  : "CI",
+         "Author"    : "hypoPN"
+      },
+      "Phase"     : phase_type,
+      "Polarity"  : ("up" | "down" | "no-result"),
+      "Picker"    : "deep-learning",
+      "Filter"    : [ {
+        "Type"     : "HighPass",
+        "HighPass" : Number,
+        }]
+      "Amplitude" :
+      {
+         "Amplitude" : phase_amp,
+         "SNR"       : phase_snr_db
+      },
+      "Quality" : [ {
+        "Standard"     : "PhaseNet",
+        "Value"    : phase_score
+        }]
+    }
+
+
+* Notes:
+- For Site, the components will come from station_id which has the form network.station.location.channel
+- For Polarity, the info is in phase_polarity; however, the values are different than those allowed in the json format, so a conversion will be necessary ("U" -> "up", "D" -> "down"). For "-", we will map to "no-result".
+- For Picker, when using phasenet picks - use value "deep-learning".
+- For Filter, PN uses a highpass filter with a value passed in as an initial argument, if the value passed is >0 (default). See data_reader.py & predict.py.
